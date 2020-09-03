@@ -2,7 +2,7 @@
 mod mesh;
 use crate::mesh::PolyMesh;
 
-use noise::{NoiseFn, Perlin, Seedable};
+use noise::{Perlin, Seedable};
 fn main() {
     let perlin = Perlin::new();
     perlin.set_seed(1564863213);
