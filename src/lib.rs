@@ -3,7 +3,7 @@
 //! # Examples
 //!
 //! ```
-//! use mesh-generation::mesh::PolyMesh;
+//! use mesh_generation::mesh::PolyMesh;
 //! use noise::{Perlin, Seedable};
 //! 
 //! let perlin = Perlin::new();
