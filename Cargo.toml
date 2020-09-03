@@ -6,6 +6,10 @@ edition = "2018"
 license = "MIT OR Apache-2.0"
 keywords = ["gamedev", "graphics", "mesh", "procedural", "terrain"]
 categories = ["rendering", "game-development"]
+description = "Mesh generation for terrain"
+documentation = "https://docs.rs/mesh-generation"
+repository = "https://github.com/DaanA32/mesh-generation"
+readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
