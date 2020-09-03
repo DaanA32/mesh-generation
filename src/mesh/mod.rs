@@ -3,6 +3,9 @@ pub use self::polymesh::PolyMesh;
 
 use noise::{NoiseFn, Perlin};
 
+/// Generates noise
+///
+///
 pub fn generate_noise_map(noise_generator: Perlin, image_width: u32, image_height: u32, divider: f64, num_layers: u32) -> Vec<f64> {
     let mut chunk = vec![0.0; (image_height * image_width) as usize];
     let mut max_val = 0.0;

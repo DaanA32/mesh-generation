@@ -16,6 +16,9 @@ const DEFAULT_WIDTH: u32 = 40;
 const DEFAULT_HEIGHT: u32 = 40;
 
 impl PolyMesh {
+
+    /// Creates new mesh with `subdivision_width` and `subdivision_height` subdivisions width wise and height wise respectively.
+    /// Height and width set the scale of the mesh.
     pub fn new(
         subdivision_width: Option<u32>, 
         subdivision_height: Option<u32>,
@@ -70,6 +73,7 @@ impl PolyMesh {
         mesh
     }
 
+    /// Exports mesh to obj format
     pub fn export_to_obj(&self, filename: &str) {
         let file_handle = File::create(filename);
         if let Ok(mut file) = file_handle {
@@ -96,6 +100,7 @@ impl PolyMesh {
         }
     }
 
+    /// Calculates normals using geometric normals
     pub fn calculate_normals(&mut self) {
         let mut off: usize = 0;
         for k in 0..self.num_faces {
@@ -112,6 +117,7 @@ impl PolyMesh {
         }
     }
     
+    /// Displaces mesh according to noise map provided.
     pub fn displace_with_noise_map(&mut self, noise_map: Vec<f64>, image_width: u32, image_height: u32) {
         let image_width = image_width as f64;
         let image_height = image_height as f64;
