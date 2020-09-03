@@ -16,3 +16,7 @@ readme = "README.md"
 [dependencies]
 noise = "0.6.0"
 nalgebra = "0.18"
+
+[lib]
+name = "lib"
+path = "src/lib.rs"
