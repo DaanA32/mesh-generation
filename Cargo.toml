@@ -3,7 +3,7 @@ name = "mesh-generation"
 version = "0.1.0"
 authors = ["DaanA32 <daan32@gmail.com>"]
 edition = "2018"
-license-file = "LICENSE-MIT OR LICENSE-APACHE"
+license = "MIT OR Apache-2.0"
 keywords = ["gamedev", "graphics", "mesh", "procedural", "terrain"]
 categories = ["rendering", "game-development"]
 
