@@ -3,6 +3,9 @@ name = "mesh-generation"
 version = "0.1.0"
 authors = ["DaanA32 <daan32@gmail.com>"]
 edition = "2018"
+license-file = "LICENSE-MIT OR LICENSE-APACHE"
+keywords = ["gamedev", "graphics", "mesh", "procedural", "terrain"]
+categories = ["rendering", "game-development"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
