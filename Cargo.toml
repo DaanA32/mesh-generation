@@ -1,6 +1,6 @@
 [package]
 name = "mesh-generation"
-version = "0.1.3"
+version = "0.1.4"
 authors = ["DaanA32 <daan32@gmail.com>"]
 edition = "2018"
 license = "MIT OR Apache-2.0"
@@ -20,3 +20,7 @@ nalgebra = "0.18"
 [lib]
 name = "mesh_generation"
 path = "src/lib.rs"
+
+[[example]]
+name = "simple"
+path = "examples/simple/src/main.rs"

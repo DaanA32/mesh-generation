@@ -12,21 +12,16 @@ pub struct PolyMesh {
     pub face_array: Vec<u32>,
 }
 
-const DEFAULT_WIDTH: u32 = 40;
-const DEFAULT_HEIGHT: u32 = 40;
-
 impl PolyMesh {
 
     /// Creates new mesh with `subdivision_width` and `subdivision_height` subdivisions width wise and height wise respectively.
     /// Height and width set the scale of the mesh.
     pub fn new(
-        subdivision_width: Option<u32>, 
-        subdivision_height: Option<u32>,
-        height: Option<u32>,
-        width: Option<u32>,
+        subdivision_width: u32, 
+        subdivision_height: u32,
+        height: u32,
+        width: u32,
     ) -> Self {
-        let subdivision_width = subdivision_width.unwrap_or(DEFAULT_WIDTH);
-        let subdivision_height = subdivision_height.unwrap_or(DEFAULT_HEIGHT);
 
         let num_vertices = (subdivision_width + 1) * (subdivision_height + 1);
         let vertices = vec![Vector3::<f64>::new(0.0, 0.0, 0.0); num_vertices as usize];
@@ -48,8 +43,8 @@ impl PolyMesh {
         };
 
         // Base flat mesh
-        let height = height.unwrap_or(1) as f64;
-        let width = width.unwrap_or(1) as f64;
+        let height = height as f64;
+        let width = width as f64;
         let invsubdivision_width = 1.0 / subdivision_width as f64; 
         let invsubdivision_height = 1.0 / subdivision_height as f64;
         println!("Height: {} Inverse: {} Width:{} Inverse:{}", subdivision_height, invsubdivision_height, subdivision_width, invsubdivision_width);
