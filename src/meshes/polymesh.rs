@@ -5,7 +5,7 @@ use std::io::prelude::*;
 pub struct PolyMesh {
     pub num_vertices: u32,
     pub vertices: Vec<Vector3<f64>>, 
-    pub vertices_array: Vec<u32>,
+    pub faces: Vec<u32>,
     pub st: Vec<Vector2<f64>>,
     pub normals: Vec<Vector3<f64>>,
     pub num_faces: u32,
@@ -28,14 +28,14 @@ impl PolyMesh {
         let st = vec![Vector2::<f64>::new(0.0, 0.0); num_vertices as usize];
         let num_faces = subdivision_width * subdivision_height; 
         let face_array = vec![4 as u32; num_faces as usize];
-        let vertices_array = vec![0 as u32; 4*num_faces as usize];
+        let faces = vec![0 as u32; 4*num_faces as usize];
         let normals = vec![Vector3::<f64>::new(0.0, 1.0, 0.0); num_vertices as usize];
         println!("Vertices: {} Faces: {}", num_vertices, num_faces);
         // Empty mesh
         let mut mesh = PolyMesh {
             num_vertices,
             vertices,
-            vertices_array,
+            faces,
             st,
             normals,
             num_faces,
@@ -58,11 +58,11 @@ impl PolyMesh {
         let mut k = 0;
         for j in 0..subdivision_height { 
             for i in 0..subdivision_height { 
-                mesh.vertices_array[k] = j * (subdivision_width + 1) + i; 
-                mesh.vertices_array[k + 1] = j * (subdivision_width + 1) + i + 1; 
-                mesh.vertices_array[k + 2] = (j + 1) * (subdivision_width + 1) + i + 1; 
-                mesh.vertices_array[k + 3] = (j + 1) * (subdivision_width + 1) + i; 
-                k += 4; 
+                mesh.faces[k] =     (j + 1) * (subdivision_width + 1) + i;
+                mesh.faces[k + 1] = (j + 1) * (subdivision_width + 1) + i + 1; 
+                mesh.faces[k + 2] = j * (subdivision_width + 1) + i + 1; 
+                mesh.faces[k + 3] = j * (subdivision_width + 1) + i; 
+                k += 4;
             } 
         } 
         mesh
@@ -85,7 +85,7 @@ impl PolyMesh {
             for i in 0..self.num_faces {
                 file.write_all(b"f ").expect("write failed");
                 for j in 0..self.face_array[i as usize] {
-                    let obj_index: u32 = self.vertices_array[(k + j) as usize] + 1;
+                    let obj_index: u32 = self.faces[(k + j) as usize] + 1;
                     let end = if j == (self.face_array[i as usize] -1) { "" } else {" "};
                     file.write_all(format!("{}/{}/{}{}", obj_index, obj_index, obj_index, end).as_bytes()).expect("write failed");
                 }
@@ -100,14 +100,14 @@ impl PolyMesh {
         let mut off: usize = 0;
         for k in 0..self.num_faces {
             let nverts = self.face_array[k as usize] as usize;
-            let vector_a = self.vertices[(self.vertices_array[off]) as usize];
-            let vector_b = self.vertices[(self.vertices_array[off+ 1]) as usize];
-            let vector_c = self.vertices[(self.vertices_array[off + nverts - 1]) as usize];
+            let vector_a = self.vertices[(self.faces[off]) as usize];
+            let vector_b = self.vertices[(self.faces[off+ 1]) as usize];
+            let vector_c = self.vertices[(self.faces[off + nverts - 1]) as usize];
     
             let tangent = vector_b - vector_a; 
             let bitangent = vector_c - vector_a;
     
-            self.normals[self.vertices_array[off] as usize]  = bitangent.cross(&tangent).normalize();
+            self.normals[self.faces[off] as usize]  = bitangent.cross(&tangent).normalize();
             off += nverts;
         }
     }
