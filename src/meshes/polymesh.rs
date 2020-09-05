@@ -132,3 +132,24 @@ fn min(a: f64, b: f64) -> f64 {
         a
     }
 }
+
+
+#[cfg(test)]
+mod tests {
+    // Note this useful idiom: importing names from outer (for mod tests) scope.
+    use super::*;
+
+    #[test]
+    fn test_2x2() {
+        let mesh = PolyMesh::new(2, 2, 1, 1);
+        assert_eq!(mesh.vertices.len(), 9);
+        assert_eq!(mesh.face_array.len(), 4);
+    }
+
+    #[test]
+    fn test_4x4() {
+        let mesh = PolyMesh::new(4, 4, 1, 1);
+        assert_eq!(mesh.vertices.len(), 25);
+        assert_eq!(mesh.face_array.len(), 16);
+    }
+}
